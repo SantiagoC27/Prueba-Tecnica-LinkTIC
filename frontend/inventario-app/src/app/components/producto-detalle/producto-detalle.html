@@ -1,0 +1,68 @@
+<div class="container mt-4">
+  <button class="btn btn-link mb-3" (click)="router.navigate(['/productos'])">
+    ← Volver a productos
+  </button>
+
+  @if (loading) {
+    <div class="text-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+    </div>
+  }
+
+  @if (error) {
+    <div class="alert alert-danger text-center">
+      {{ error }}
+    </div>
+  }
+
+  @if (!loading && producto) {
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h3 class="card-title">{{ producto.nombre }}</h3>
+        <p class="card-text">{{ producto.descripcion }}</p>
+        <p class="fw-bold">Precio: ${{ producto.precio }}</p>
+
+        @if (inventario) {
+          <div class="mt-4">
+            <h5>Inventario</h5>
+            <p>
+              Cantidad disponible:
+              <span
+                [class.text-success]="inventario.cantidad > 0"
+                [class.text-danger]="inventario.cantidad === 0"
+              >
+                {{ inventario.cantidad }}
+              </span>
+            </p>
+
+            <div class="d-flex gap-2 mt-3">
+              <input
+                type="number"
+                [(ngModel)]="inventario.cantidad"
+                class="form-control w-25"
+                placeholder="Cantidad"
+              />
+              <button
+                class="btn btn-primary"
+                (click)="actualizarInventario()"
+                [disabled]="loadingUpdate"
+              >
+                Actualizar
+              </button>
+            </div>
+          </div>
+        } @else {
+          <div class="alert alert-info mt-3">
+            No hay información de inventario disponible.
+          </div>
+        }
+      </div>
+    </div>
+  } @else if (!loading && !producto) {
+    <div class="alert alert-warning text-center">
+      Producto no encontrado.
+    </div>
+  }
+</div>
