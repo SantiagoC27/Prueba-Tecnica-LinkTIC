@@ -20,7 +20,7 @@ export class InventarioService {
 
   // Obtener inventario de un producto
   obtenerInventarioPorProducto(idProducto: number): Observable<Inventario> {
-    return this.http.get<Inventario>(`${this.baseUrl}/producto/${idProducto}`);
+    return this.http.get<Inventario>(`${this.baseUrl}/${idProducto}`);
   }
 
   // Obtener todo el inventario
@@ -30,16 +30,6 @@ export class InventarioService {
 
   // Actualizar inventario
   actualizarInventario(inventario: Inventario): Observable<Inventario> {
-    return this.http.put<Inventario>(`${this.baseUrl}/${inventario.id}`, inventario);
-  }
-
-  // Crear inventario (opcional)
-  crearInventario(inventario: Inventario): Observable<Inventario> {
-    return this.http.post<Inventario>(this.baseUrl, inventario);
-  }
-
-  // Eliminar inventario (opcional)
-  eliminarInventario(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+    return this.http.put<Inventario>(`${this.baseUrl}/${inventario.id}`, { cantidad: inventario.cantidad });
   }
 }

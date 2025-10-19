@@ -17,9 +17,9 @@ public class InventarioService {
 
     private final String productosServiceUrl = "http://productos-service:8080/api/productos/";
 
-    public InventarioService(InventarioRepository inventarioRepository) {
+    public InventarioService(InventarioRepository inventarioRepository, RestTemplate restTemplate) {
         this.inventarioRepository = inventarioRepository;
-        this.restTemplate = new RestTemplate();
+        this.restTemplate = restTemplate;
     }
 
     public Optional<Inventario> obtenerPorProductoId(Long productoId) {

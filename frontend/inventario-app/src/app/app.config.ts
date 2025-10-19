@@ -18,14 +18,14 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    provideHttpClient(withFetch()), // ✅ usa fetch
-    provideAnimations(), // ✅ habilita animaciones
+    provideHttpClient(withFetch()),
+    provideAnimations(),
     importProvidersFrom(
       ToastrModule.forRoot({
         timeOut: 3000,
         positionClass: 'toast-bottom-right',
         preventDuplicates: true,
       })
-    ), // ✅ registra el módulo de Toastrcls
+    ),
   ],
 };

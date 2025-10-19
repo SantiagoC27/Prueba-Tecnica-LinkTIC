@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { finalize } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-productos-list',
@@ -20,7 +21,8 @@ export class ProductosListComponent implements OnInit {
   constructor(
     private productoService: ProductoService,
     private toastr: ToastrService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +36,6 @@ export class ProductosListComponent implements OnInit {
       .pipe(
         finalize(() => {
           this.loading = false;
-          // Zoneless CD: asegurar que la vista se actualiza
           this.cdr.detectChanges();
         })
       )
@@ -63,5 +64,9 @@ export class ProductosListComponent implements OnInit {
         }
       });
     }
+  }
+
+  verDetalle(id: number): void {
+    this.router.navigate(['/productos', id]);
   }
 }

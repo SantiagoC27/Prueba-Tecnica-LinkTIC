@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
 
@@ -17,6 +18,9 @@ class InventarioServiceTest {
 
     @Mock
     private InventarioRepository inventarioRepository;
+
+    @Mock
+    private RestTemplate restTemplate;
 
     @InjectMocks
     private InventarioService inventarioService;
@@ -48,5 +52,19 @@ class InventarioServiceTest {
 
         assertThat(actualizado.getCantidad()).isEqualTo(100);
         verify(inventarioRepository, times(1)).save(any());
+    }
+
+    @Test
+    void obtenerProductoDesdeMicroservicio_deeberiaRetornarProducto(){
+        Long productoId = 1L;
+        Object productoMock = new Object();
+
+        when(restTemplate.getForObject("http://productos-service:8080/api/productos/" + productoId, Object.class))
+                .thenReturn(productoMock);
+
+        Object resultado = inventarioService.obtenerProductoDesdeMicroservicio(productoId);
+
+        assertThat(resultado).isEqualTo(productoMock);
+        verify(restTemplate, times(1)).getForObject(anyString(), eq(Object.class));
     }
 }
