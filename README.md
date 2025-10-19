@@ -31,7 +31,7 @@ fullstack-challenge/
 │ └── docker-compose.yml # Orquestación backend (DB + servicios)
 │
 ├── frontend/
-│ └── angular-app/ # Aplicación Angular (interfaz de usuario)
+│ └── inventario-app/ # Aplicación Angular (interfaz de usuario)
 │
 └── README.md
 ```
@@ -69,7 +69,8 @@ Para levantar ambos servicios tanto backend como la base de datos se hace median
 
 ```bash
 cd backend
-docker compose up --build
+docker compose build --no-cache
+docker compose up
 ```
 
 ## 💻 Frontend (Angular)
@@ -79,8 +80,20 @@ Para levantar el frontend:
 ```bash
 cd frontend/angular-app
 npm i
-ng serve
+ng serve --proxy-config proxy.conf.json
 ```
+
+## 🧭 Acceso a Swagger UI
+
+Una vez este levantado el **Docker Compose**:
+
+Documentación JSON:
+- [http://localhost:8080/v3/api-docs]
+- [http://localhost:8082/v3/api-docs]
+
+Interfaz visual:
+- [http://localhost:8080/swagger-ui.html]
+- [http://localhost:8082/swagger-ui.html]
 
 ## 🧪 Pruebas
 
