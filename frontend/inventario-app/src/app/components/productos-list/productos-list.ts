@@ -52,7 +52,8 @@ export class ProductosListComponent implements OnInit {
       });
   }
 
-  eliminarProducto(id: number): void {
+  eliminarProducto(id: number, $event: Event): void {
+    $event.stopPropagation();
     if (confirm('¿Seguro que deseas eliminar este producto?')) {
       this.productoService.delete(id).subscribe({
         next: () => {
